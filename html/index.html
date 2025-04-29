@@ -3,186 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QB Tour Guide</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Tour Guide UI</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Include FontAwesome if you use icons heavily in the UI itself -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"> -->
 </head>
 <body>
-    <!-- Main Menu -->
-    <div id="main-menu" class="container">
-        <div class="header">
-            <h1><i class="fas fa-map-marked-alt"></i> Los Santos Tours</h1>
-            <p>Welcome to the official Los Santos Tour Guide application.</p>
-        </div>
-        
-        <div id="tours-container" class="tours-container">
-            <!-- Tours will be populated here by JS -->
-        </div>
-        
-        <div class="footer">
-            <button id="close-menu" class="btn danger"><i class="fas fa-times"></i> Close</button>
-        </div>
-    </div>
-    
-    <!-- Tour Details -->
-    <div id="tour-details" class="container">
-        <div class="header">
-            <h1><i class="fas fa-route"></i> <span id="tour-name">Tour Name</span></h1>
-            <p id="tour-description">Tour description will appear here.</p>
-        </div>
-        
-        <div class="tour-info">
-            <div class="info-block">
-                <h3><i class="fas fa-dollar-sign"></i> Price</h3>
-                <p id="tour-price">$350</p>
+    <div id="ui-container" class="hidden">
+
+        <!-- Tour Selection Panel -->
+        <div id="tour-selection" class="panel hidden">
+            <h2>Select a Tour</h2>
+            <div id="tour-options">
+                <!-- Tour options will be populated by JS -->
             </div>
-            
-            <div class="info-block">
-                <h3><i class="fas fa-clock"></i> Duration</h3>
-                <p id="tour-duration">30 minutes</p>
+            <button id="close-selection" class="btn-close">Close</button>
+        </div>
+
+        <!-- Main Tour Dashboard -->
+        <div id="tour-dashboard" class="panel hidden">
+            <h3 id="tour-name">Tour Name</h3>
+            <div class="info-grid">
+                <div>POI: <span id="poi-status">1 / 5</span></div>
+                <div>Next: <span id="poi-name">Point of Interest</span></div>
+                <div>Distance: <span id="poi-distance">--- m</span></div>
+                <div>Rating: <span id="avg-rating">--%</span></div>
             </div>
-            
-            <div class="info-block">
-                <h3><i class="fas fa-map-pin"></i> Landmarks</h3>
-                <p id="tour-landmarks">5 locations</p>
-            </div>
-        </div>
-        
-        <div class="landmarks-preview">
-            <h3>Tour Landmarks</h3>
-            <div id="landmarks-list" class="landmarks-list">
-                <!-- Landmarks will be populated here by JS -->
-            </div>
-        </div>
-        
-        <div class="footer">
-            <button id="start-tour" class="btn success"><i class="fas fa-play"></i> Start Tour</button>
-            <button id="back-to-menu" class="btn primary"><i class="fas fa-arrow-left"></i> Back</button>
-        </div>
-    </div>
-    
-    <!-- Tour HUD -->
-    <div id="tour-hud" class="tour-hud">
-        <div class="tour-status">
-            <h3><i class="fas fa-route"></i> <span id="active-tour-name">City Tour</span></h3>
-            <div class="destination">
-                <p><i class="fas fa-map-marker-alt"></i> Next: <span id="next-destination">Maze Bank Tower</span></p>
-            </div>
-        </div>
-        
-        <button id="end-active-tour" class="btn danger small"><i class="fas fa-times"></i> End Tour</button>
-    </div>
-    
-    <!-- Landmark Info -->
-    <div id="landmark-info" class="container">
-        <div class="header">
-            <h1><i class="fas fa-landmark"></i> <span id="landmark-name">Landmark Name</span></h1>
-            <p id="landmark-description">Landmark description will appear here.</p>
-        </div>
-        
-        <div class="facts-section">
-            <h3><i class="fas fa-lightbulb"></i> Interesting Facts</h3>
-            <ul id="landmark-facts" class="fact-list">
-                <!-- Facts will be populated here by JS -->
-            </ul>
-        </div>
-        
-        <div class="footer">
-            <button id="continue-tour" class="btn success"><i class="fas fa-arrow-right"></i> Continue Tour</button>
-        </div>
-    </div>
-    
-    <!-- Knowledge Check -->
-    <div id="knowledge-check" class="container">
-        <div class="header">
-            <h1><i class="fas fa-question-circle"></i> Knowledge Check</h1>
-            <p>Test your knowledge about this landmark!</p>
-        </div>
-        
-        <div class="quiz-section">
-            <h3 id="quiz-question">Quiz question will appear here?</h3>
-            <div id="quiz-options" class="quiz-options">
-                <!-- Options will be populated here by JS -->
-            </div>
-        </div>
-        
-        <div class="footer">
-            <p class="hint">Answer correctly to impress your tourists!</p>
-        </div>
-    </div>
-    
-    <!-- Tour Results -->
-    <div id="tour-results" class="container">
-        <div class="header">
-            <h1><i class="fas fa-medal"></i> Tour Complete!</h1>
-            <p>Here's how you performed:</p>
-        </div>
-        
-        <div class="ratings-section">
-            <h3>Tour Ratings</h3>
-            
-            <div class="rating-item">
-                <span class="rating-label">Knowledge:</span>
-                <div id="knowledge-rating" class="stars">
-                    <!-- Stars will be populated by JS -->
+
+            <!-- POI Info / Quiz Area -->
+            <div id="poi-interaction" class="hidden">
+                <div id="poi-info" class="hidden">
+                    <h4>Information</h4>
+                    <p id="poi-info-text"></p>
+                </div>
+                <div id="quiz-section" class="hidden">
+                    <h4>Quiz Question</h4>
+                    <p id="quiz-question-text"></p>
+                    <div id="quiz-options" class="quiz-option-grid">
+                        <!-- Quiz answer buttons populated by JS -->
+                    </div>
                 </div>
             </div>
-            
-            <div class="rating-item">
-                <span class="rating-label">Safety:</span>
-                <div id="safety-rating" class="stars">
-                    <!-- Stars will be populated by JS -->
-                </div>
-            </div>
-            
-            <div class="rating-item">
-                <span class="rating-label">Entertainment:</span>
-                <div id="entertainment-rating" class="stars">
-                    <!-- Stars will be populated by JS -->
-                </div>
-            </div>
-            
-            <div class="rating-item">
-                <span class="rating-label">Timeliness:</span>
-                <div id="timeliness-rating" class="stars">
-                    <!-- Stars will be populated by JS -->
-                </div>
-            </div>
-            
-            <div class="rating-item overall">
-                <span class="rating-label">Overall:</span>
-                <div id="overall-rating" class="stars">
-                    <!-- Stars will be populated by JS -->
-                </div>
+
+            <div class="controls">
+                <button id="btn-next-poi" class="btn hidden">Next POI</button>
+                <button id="btn-end-tour" class="btn btn-danger">End Tour</button>
             </div>
         </div>
-        
-        <div class="payment-section">
-            <h3>Payment Details</h3>
-            <div class="payment-details">
-                <div class="payment-item">
-                    <span>Base Pay:</span>
-                    <span id="base-pay">$350</span>
-                </div>
-                <div class="payment-item">
-                    <span>Tip:</span>
-                    <span id="tip-amount">$87</span>
-                </div>
-                <div class="payment-item total">
-                    <span>Total:</span>
-                    <span id="total-pay">$437</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <button id="finish-results" class="btn success"><i class="fas fa-check"></i> Finish</button>
-        </div>
-    </div>
-    
-    <!-- Tourist Speech Bubble -->
-    <div id="speech-bubble" class="speech-bubble">
-        <p id="speech-text">Hello! I'm excited for the tour!</p>
+
     </div>
 
     <script src="script.js"></script>
