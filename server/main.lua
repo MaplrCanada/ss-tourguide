@@ -1,7 +1,7 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 -- Event to pay tour guide at end of tour
-RegisterNetEvent('qb-tourguide:server:PayTourGuide', function(amount, basePay, tipAmount, rating)
+RegisterNetEvent('ss-tourguide:server:PayTourGuide', function(amount, basePay, tipAmount, rating)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
     
@@ -61,7 +61,7 @@ QBCore.Functions.CreateUseableItem("tourguide_manual", function(source, item)
     
     if not Player then return end
     
-    TriggerClientEvent('qb-tourguide:client:OpenTourMenu', src)
+    TriggerClientEvent('ss-tourguide:client:OpenTourMenu', src)
 end)
 
 QBCore.Functions.CreateUseableItem("tourguide_badge", function(source, item)

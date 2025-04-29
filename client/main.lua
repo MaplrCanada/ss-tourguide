@@ -548,7 +548,7 @@ function EndTour(reason)
     -- Only pay if tour was completed
     if reason == "completed" then
         -- Send payment data to server
-        TriggerServerEvent("qb-tourguide:server:PayTourGuide", totalPay, basePay, tipAmount, overallRating)
+        TriggerServerEvent("ss-tourguide:server:PayTourGuide", totalPay, basePay, tipAmount, overallRating)
         
         -- Tourist goodbye phrases
         for _, tourist in ipairs(currentTourists) do
@@ -654,7 +654,7 @@ CreateThread(function()
             options = {
                 {
                     type = "client",
-                    event = "qb-tourguide:client:OpenTourMenu",
+                    event = "ss-tourguide:client:OpenTourMenu",
                     icon = "fas fa-map-marked",
                     label = "Start " .. tourData.name,
                     job = "tourguide",
@@ -667,7 +667,7 @@ CreateThread(function()
 end)
 
 -- Event for target interaction
-RegisterNetEvent('qb-tourguide:client:OpenTourMenu', function(data)
+RegisterNetEvent('ss-tourguide:client:OpenTourMenu', function(data)
     if data.tourType then
         SetNuiFocus(true, true)
         SendNUIMessage({
